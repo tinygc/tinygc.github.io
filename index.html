@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TGCソフトウェア</title>
+  <meta name="description" content="Androidアプリをはじめとするソフトウェアの開発・運営">
+  <meta property="og:title" content="TGCソフトウェア">
+  <meta property="og:description" content="Androidアプリをはじめとするソフトウェアの開発・運営">
+  <meta property="og:image" content="https://prd.resource-api.lit.link/images/creators/bca026f3-8a4d-4f34-961f-5952dc9b7b50/icons/4321678a-27f1-4706-bb48-b317be686020.png">
+  <meta property="og:url" content="https://tinygc.github.io/">
+  <meta name="twitter:card" content="summary">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #1a56db;
+      --primary-dark: #1e40af;
+      --accent: #06b6d4;
+      --bg: #0f172a;
+      --bg2: #1e293b;
+      --bg3: #334155;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: #334155;
+      --radius: 12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Meiryo', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ========== HEADER ========== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+    .logo img {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    nav {
+      display: flex;
+      gap: 24px;
+      font-size: 0.9rem;
+    }
+    nav a {
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--text); }
+
+    /* ========== HERO ========== */
+    .hero {
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px;
+      background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(26, 86, 219, 0.3) 0%, transparent 70%);
+    }
+    .hero-inner { max-width: 720px; }
+    .hero-avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 20px;
+      margin: 0 auto 24px;
+      object-fit: cover;
+      border: 2px solid var(--border);
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 36px;
+    }
+    .badge {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .btn-outline:hover { background: var(--bg2); transform: translateY(-1px); }
+    .hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    /* ========== SECTION COMMON ========== */
+    section { padding: 80px 24px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .section-desc {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 540px;
+      margin-bottom: 48px;
+    }
+
+    /* ========== PRODUCTS ========== */
+    .products-bg { background: var(--bg2); }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .product-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .product-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+    .product-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+    }
+    .product-platform {
+      display: inline-block;
+      background: rgba(6, 182, 212, 0.15);
+      color: var(--accent);
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .product-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .product-card p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+    .product-features {
+      list-style: none;
+      margin-bottom: 20px;
+    }
+    .product-features li {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      padding: 4px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+    .product-features li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+    .product-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .product-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      color: var(--primary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 12px;
+      transition: all 0.2s;
+    }
+    .product-link:hover { background: var(--bg2); border-color: var(--primary); }
+
+    /* ========== ABOUT ========== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; }
+    }
+    .about-info-list { list-style: none; }
+    .about-info-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .about-info-list li:last-child { border-bottom: none; }
+    .info-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      min-width: 130px;
+      padding-top: 2px;
+    }
+    .info-value { font-size: 0.95rem; }
+
+    /* ========== CONTACT ========== */
+    .contact-bg { background: var(--bg2); }
+    .contact-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .contact-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex: 1 1 260px;
+      transition: border-color 0.2s, transform 0.2s;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .contact-card:hover { border-color: var(--primary); transform: translateY(-2px); }
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--bg2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .contact-card h4 { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 4px; }
+    .contact-card p { font-size: 0.95rem; font-weight: 600; }
+
+    /* ========== FOOTER ========== */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      text-align: center;
+    }
+    footer p { color: var(--text-muted); font-size: 0.85rem; }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 640px) {
+      nav { display: none; }
+      section { padding: 56px 16px; }
+      .hero { padding: 60px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <img src="https://prd.resource-api.lit.link/images/creators/bca026f3-8a4d-4f34-961f-5952dc9b7b50/icons/4321678a-27f1-4706-bb48-b317be686020.png" alt="TGCソフトウェア ロゴ">
+      TGCソフトウェア
+    </a>
+    <nav>
+      <a href="#products">プロダクト</a>
+      <a href="#about">について</a>
+      <a href="#contact">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <img
+      class="hero-avatar"
+      src="https://prd.resource-api.lit.link/images/creators/bca026f3-8a4d-4f34-961f-5952dc9b7b50/icons/4321678a-27f1-4706-bb48-b317be686020.png"
+      alt="TGCソフトウェア"
+    >
+    <h1>TGCソフトウェア</h1>
+    <p>Androidアプリをはじめとするソフトウェアの開発・運営</p>
+    <div class="hero-badges">
+      <span class="badge">📱 Android</span>
+      <span class="badge">📺 Android TV</span>
+      <span class="badge">🧩 Chrome 拡張</span>
+      <span class="badge">🎮 ゲーム</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#products" class="btn btn-primary">プロダクトを見る</a>
+      <a href="#contact" class="btn btn-outline">お問い合わせ</a>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products-bg" id="products">
+  <div class="section-inner">
+    <p class="section-label">Products</p>
+    <h2 class="section-title">プロダクト一覧</h2>
+    <p class="section-desc">TGCソフトウェアが開発・提供しているアプリや拡張機能をご紹介します。</p>
+
+    <div class="products-grid">
+
+      <!-- RSS Feed Watch -->
+      <div class="product-card">
+        <div class="product-icon">📡</div>
+        <span class="product-platform">Android / Android TV</span>
+        <h3>RSS Feed Watch</h3>
+        <p>シンプルなRSSリーダーアプリ。テレビでニュースを大画面で、スマートフォンでいつでものんびりチェック。</p>
+        <ul class="product-features">
+          <li>Android TV・スマートフォン両対応</li>
+          <li>NHK・Yahoo!ニュースなどプリセット配信</li>
+          <li>カスタムURLで好みのフィードを追加</li>
+          <li>シンプルで使いやすいUI</li>
+        </ul>
+        <div class="product-links">
+          <a class="product-link" href="https://play.google.com/store/search?q=RSS+Feed+Watch&c=apps" target="_blank" rel="noopener">
+            ▶ Google Play
+          </a>
+        </div>
+      </div>
+
+      <!-- KindleChecker -->
+      <div class="product-card">
+        <div class="product-icon">📚</div>
+        <span class="product-platform">Chrome 拡張機能</span>
+        <h3>KindleChecker</h3>
+        <p>Amazonの欲しいものリストでKindle本のポイント還元率・割引率・クーポンをチェックして一覧表示。</p>
+        <ul class="product-features">
+          <li>欲しいものリストに直接表示</li>
+          <li>ポイント還元率・割引率を自動計算</li>
+          <li>お得なタイミングを見逃さない</li>
+        </ul>
+        <div class="product-links">
+          <a class="product-link" href="https://github.com/tinygc/KindleChecker" target="_blank" rel="noopener">
+            ⌥ GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- gamenumcheck -->
+      <div class="product-card">
+        <div class="product-icon">🎯</div>
+        <span class="product-platform">Android</span>
+        <h3>Number Guessing Game</h3>
+        <p>数当てゲームアプリ。シンプルで楽しい数字当てゲームをスマートフォンで手軽に遊べます。</p>
+        <ul class="product-features">
+          <li>直感的な操作で誰でも楽しめる</li>
+          <li>シンプルな数当てゲーム</li>
+        </ul>
+        <div class="product-links">
+          <a class="product-link" href="https://github.com/tinygc/gamenumcheck" target="_blank" rel="noopener">
+            ⌥ GitHub
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <p class="section-label">About</p>
+    <h2 class="section-title">TGCソフトウェアについて</h2>
+    <div class="about-grid">
+      <div>
+        <p style="color: var(--text-muted); margin-bottom: 24px;">
+          TGCソフトウェアは、Androidアプリをはじめとするソフトウェアの開発・運営を行っています。
+          シンプルで使いやすいプロダクトを通じて、日々の生活をちょっと便利にすることを目指しています。
+        </p>
+        <p style="color: var(--text-muted);">
+          Android TV向けアプリやスマートフォンアプリ、Chrome拡張機能など、幅広いプラットフォームで
+          ユーザーに価値を届けるプロダクトを開発しています。
+        </p>
+      </div>
+      <ul class="about-info-list">
+        <li>
+          <span class="info-label">組織名</span>
+          <span class="info-value">TGCソフトウェア</span>
+        </li>
+        <li>
+          <span class="info-label">D-U-N-S 番号</span>
+          <span class="info-value">699140331</span>
+        </li>
+        <li>
+          <span class="info-label">主な活動領域</span>
+          <span class="info-value">Androidアプリ、Chrome拡張機能、ゲームアプリ</span>
+        </li>
+        <li>
+          <span class="info-label">GitHub</span>
+          <span class="info-value">
+            <a href="https://github.com/tinygc" target="_blank" rel="noopener" style="color: var(--accent);">github.com/tinygc</a>
+          </span>
+        </li>
+        <li>
+          <span class="info-label">メール</span>
+          <span class="info-value">
+            <a href="mailto:tgcsoftware26@gmail.com" style="color: var(--accent);">tgcsoftware26@gmail.com</a>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-bg" id="contact">
+  <div class="section-inner">
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">お問い合わせ</h2>
+    <p class="section-desc">ご質問・ご要望はお気軽にどうぞ。</p>
+    <div class="contact-cards">
+      <a class="contact-card" href="mailto:tgcsoftware26@gmail.com">
+        <div class="contact-icon">✉️</div>
+        <div>
+          <h4>メール</h4>
+          <p>tgcsoftware26@gmail.com</p>
+        </div>
+      </a>
+      <a class="contact-card" href="https://x.com/tgcsoftware26" target="_blank" rel="noopener">
+        <div class="contact-icon">𝕏</div>
+        <div>
+          <h4>X (Twitter)</h4>
+          <p>@tgcsoftware26</p>
+        </div>
+      </a>
+      <a class="contact-card" href="https://github.com/tinygc" target="_blank" rel="noopener">
+        <div class="contact-icon">⌥</div>
+        <div>
+          <h4>GitHub</h4>
+          <p>github.com/tinygc</p>
+        </div>
+      </a>
+      <a class="contact-card" href="https://lit.link/tgcsoftware26" target="_blank" rel="noopener">
+        <div class="contact-icon">🔗</div>
+        <div>
+          <h4>lit.link</h4>
+          <p>lit.link/tgcsoftware26</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    <a href="#products">プロダクト</a>
+    <a href="#about">について</a>
+    <a href="#contact">お問い合わせ</a>
+    <a href="https://github.com/tinygc" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://lit.link/tgcsoftware26" target="_blank" rel="noopener">lit.link</a>
+  </div>
+  <p>&copy; 2024 TGCソフトウェア. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
